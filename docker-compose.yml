@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  cache:
+    image: redis:6.2-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./cache:/data
+  dj:
+    image: phdmabuze/picasso-dj
+#    build: ./dj
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./media-vol/:/dj/upload
+      - ./db-vol/:/db-vol
+    depends_on:
+      - cache
+volumes:
+  cache:
+    driver: local
+  dj:
+    driver: local
