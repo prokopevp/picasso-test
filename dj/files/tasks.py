@@ -24,7 +24,7 @@ def process_file(file_id):
             blured_img = img.filter(ImageFilter.BoxBlur(5))
             gray_scaled = blured_img.convert("CMYK").convert("L")
             gray_scaled.save(file_path)
-        if file_ext == '.pdf':
+        elif file_ext == '.pdf':
             # Считывание текста в txt файл под именем filename.pdf.txt
 
             text = ''
@@ -34,6 +34,8 @@ def process_file(file_id):
             text_file_path = os.path.join(MEDIA_ROOT, file.file.name+'.txt')
             with open(text_file_path, "w", encoding='utf-8') as f:
                 f.write(text)
+        else:
+            return
     except Exception as e:
         print(e)
     finally:

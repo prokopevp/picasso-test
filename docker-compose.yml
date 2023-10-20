@@ -9,8 +9,8 @@ services:
     volumes:
       - ./cache:/data
   dj:
-    image: phdmabuze/picasso-dj
-#    build: ./dj
+#    image: phdmabuze/picasso-dj
+    build: ./dj
     restart: unless-stopped
     ports:
       - "8000:8000"
