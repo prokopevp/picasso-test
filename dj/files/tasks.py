@@ -36,8 +36,7 @@ def process_file(file_id):
                 f.write(text)
         else:
             return
-    except Exception as e:
-        print(e)
-    finally:
         file.processed = True
         file.save()
+    except Exception as e:
+        print(e)
