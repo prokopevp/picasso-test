@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   cache:
+    container_name: picasso-cache
     image: redis:6.2-alpine
     restart: unless-stopped
     ports:
@@ -9,16 +10,36 @@ services:
     volumes:
       - ./cache:/data
   dj:
+    container_name: picasso-dj
 #    image: phdmabuze/picasso-dj
     build: ./dj
     restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:
-      - ./media-vol/:/dj/upload
-      - ./db-vol/:/db-vol
+      - type: bind
+        source: ./media-vol/
+        target: /upload
+      - type: bind
+        source: ./db-vol/
+        target: /db-vol
     depends_on:
       - cache
+  celery:
+    container_name: picasso-celery
+#    image: phdmabuze/picasso-dj
+    build: ./dj
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./media-vol/
+        target: /upload
+      - type: bind
+        source: ./db-vol/
+        target: /db-vol
+    command: celery -A dj worker -l INFO
+    depends_on:
+      - dj
 volumes:
   cache:
     driver: local

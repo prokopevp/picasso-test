@@ -17,7 +17,7 @@ def process_file(file_id):
     file_path = file.file.path
     file_ext = os.path.splitext(file_path)[1]
     try:
-        if file_ext in ['.jpg', '.png', '.bmp', '.gif', '.tif']:
+        if file_ext in ['.jpg', '.png', '.jpeg']:
             # Блюр и чб изображения
             with Image.open(file_path) as img:
                 img.load()
