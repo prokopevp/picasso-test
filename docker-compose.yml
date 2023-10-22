@@ -10,8 +10,8 @@ services:
     volumes:
       - ./cache-vol:/data
   dj:
-    container_name: picasso-dj
-#    image: phdmabuze/picasso-dj
+#    container_name: picasso-dj
+    image: phdmabuze/picasso-dj
     build: ./dj
     restart: unless-stopped
     ports:
@@ -26,8 +26,8 @@ services:
     depends_on:
       - cache
   celery:
-    container_name: picasso-celery
-#    image: phdmabuze/picasso-dj
+#    container_name: picasso-celery
+    image: phdmabuze/picasso-dj
     build: ./dj
     restart: unless-stopped
     volumes:
